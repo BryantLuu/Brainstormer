@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Brainstormer</title>
+    <style>
+
+      .btncontainer {
+        width:100%;
+        position:relative;
+      }
+
+      .but {
+        margin:15px auto;
+        display:block;
+      }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      let industries = [
+        "Accident & Health Insurance",
+        "Advertising Agencies",
+        "Aerospace/Defense - Major Diversified",
+        "Aerospace/Defense Products & Services",
+        "Agricultural Chemicals",
+        "Air Delivery & Freight Services",
+        "Air Services, Other",
+        "Aluminum",
+        "Apparel Stores",
+        "Appliances",
+        "Application Software",
+        "Asset Management",
+        "Auto Dealerships",
+        "Auto Manufacturers - Major",
+        "Auto Parts",
+        "Basic Materials Wholesale",
+        "Beverages - Brewers",
+        "Beverages - Soft Drinks",
+        "Beverages - Wineries & Distillers",
+        "Biotechnology",
+        "Broadcasting - Radio",
+        "Broadcasting - TV",
+        "Building Materials Wholesale",
+        "Business Equipment",
+        "Business Services",
+        "Business Software & Services",
+        "Catalog & Mail Order Houses",
+        "CATV Systems",
+        "Cement",
+        "Chemicals - Major Diversified",
+        "Cigarettes",
+        "Cleaning Products",
+        "Communication Equipment",
+        "Computer Based Systems",
+        "Computer Peripherals",
+        "Computers Wholesale",
+        "Confectioners",
+        "Conglomerates",
+        "Consumer Services",
+        "Copper",
+        "Credit Services",
+        "Dairy Products",
+        "Data Storage Devices",
+        "Department Stores",
+        "Diagnostic Substances",
+        "Discount, Variety Stores",
+        "Diversified Communication Services",
+        "Diversified Computer Systems",
+        "Diversified Electronics",
+        "Diversified Investments",
+        "Diversified Machinery",
+        "Diversified Utilities",
+        "Drug Delivery",
+        "Drug Manufacturers - Major",
+        "Drug Manufacturers - Other",
+        "Drug Related Products",
+        "Drug Stores",
+        "Drugs - Generic",
+        "Drugs Wholesale",
+        "Education & Training Services",
+        "Electric Utilities",
+        "Electronic Equipment",
+        "Electronics Stores",
+        "Electronics Wholesale",
+        "Entertainment - Diversified",
+        "Farm & Construction Machinery",
+        "Farm Products",
+        "Food - Major Diversified",
+        "Food Wholesale",
+        "Foreign Money Center Banks",
+        "Foreign Regional Banks",
+        "Gaming Activities",
+        "Gas Utilities",
+        "General Building Materials",
+        "General Contractors",
+        "General Entertainment",
+        "Gold",
+        "Grocery Stores",
+        "Health Care Plans",
+        "Healthcare Information Services",
+        "Heavy Construction",
+        "Home Furnishing Stores",
+        "Home Furnishings & Fixtures",
+        "Home Health Care",
+        "Home Improvement Stores",
+        "Hospitals",
+        "Housewares & Accessories",
+        "Independent Oil & Gas",
+        "Industrial Electrical Equipment",
+        "Industrial Equipment & Components",
+        "Industrial Equipment Wholesale",
+        "Industrial Metals & Minerals",
+        "Information & Delivery Services",
+        "Information Technology Services",
+        "Insurance Brokers",
+        "Internet Information Providers",
+        "Internet Service Providers",
+        "Internet Software & Services",
+        "Investment Brokerage - National",
+        "Investment Brokerage - Regional",
+        "Jewelry Stores",
+        "Life Insurance",
+        "Lodging",
+        "Long Distance Carriers",
+        "Long-Term Care Facilities",
+        "Lumber, Wood Production",
+        "Machine Tools & Accessories",
+        "Major Airlines",
+        "Major Integrated Oil & Gas",
+        "Management Services",
+        "Marketing Services",
+        "Meat Products",
+        "Medical Appliances & Equipment",
+        "Medical Equipment Wholesale",
+        "Medical Instruments & Supplies",
+        "Medical Laboratories & Research",
+        "Metal Fabrication",
+        "Money Center Banks",
+        "Mortgage Investment",
+        "Movie Production, Theaters",
+        "Multimedia & Graphics Software",
+        "Music & Video Stores",
+        "Networking & Communication Devices",
+        "Nonmetallic Mineral Mining",
+        "Office Supplies",
+        "Oil & Gas Drilling & Exploration",
+        "Oil & Gas Equipment & Services",
+        "Oil & Gas Pipelines",
+        "Oil & Gas Refining & Marketing",
+        "Packaging & Containers",
+        "Paper & Paper Products",
+        "Personal Products",
+        "Personal Services",
+        "Pharmaceuticals",
+        "Photographic Equipment & Supplies",
+        "Pollution & Treatment Controls",
+        "Printed Circuit Boards",
+        "Processed & Packaged Goods",
+        "Processing Systems & Products",
+        "Property",
+        "Property & Casualty Insurance",
+        "Property Management",
+        "Publishing - Books",
+        "Publishing - Newspapers",
+        "Publishing - Periodicals",
+        "Railroads",
+        "Real Estate Development",
+        "Recreational Goods, Other",
+        "Recreational Vehicles",
+        "Regional Airlines",
+        "Rental & Leasing Services",
+        "Research Services",
+        "Residential Construction",
+        "Resorts & Casinos",
+        "Restaurants",
+        "Rubber & Plastics",
+        "Savings & Loans",
+        "Scientific & Technical Instruments",
+        "Security & Protection Services",
+        "Security Software & Services",
+        "Semiconductor - Broad Line",
+        "Semiconductor - Integrated Circuits",
+        "Semiconductor - Specialized",
+        "Semiconductor Equipment & Materials",
+        "Semiconductor- Memory Chips",
+        "Shipping",
+        "Silver",
+        "Small Tools & Accessories",
+        "Specialized Health Services",
+        "Specialty Chemicals",
+        "Specialty Eateries",
+        "Specialty Retail, Other",
+        "Sporting Activities",
+        "Staffing & Outsourcing Services",
+        "Steel & Iron",
+        "Synthetics",
+        "Technical Services",
+        "Telecom Services",
+        "Textile Industrial",
+        "Tobacco Products, Other",
+        "Toys & Games",
+        "Trucking",
+        "Trucks & Other Vehicles",
+        "Waste Management",
+        "Water Utilities",
+        "Wireless Communications",
+        "STOCKS"
+      ];
+
+      let collegeMajors = [
+        "Agriculture",
+        "Architecture and Planning",
+        "Arts",
+        "Biological Sciences",
+        "Business",
+        "Communications",
+        "Computer and Information Sciences",
+        "Education",
+        "Engineering",
+        "Environmental Sciences",
+        "Health Care",
+        "Languages and Literature",
+        "Law",
+        "Mathematics & Statistics",
+        "Mechanics and Repair",
+        "Military Science",
+        "Philosophy and Religion",
+        "Physical Sciences",
+        "Protective Services",
+        "Psychology & Counseling",
+        "Recreation & Fitness",
+        "Services",
+        "Skilled Trades and Construction",
+        "Social Sciences & Liberal Arts",
+        "Social Services",
+        "Transportation",
+      ];
+
+      let redditByPopular = ["AskReddit","politics","The_Donald","pokemongo","funny","worldnews","SandersForPresident","pics","todayilearned","gifs","AdviceAnimals","soccer","videos","news","SquaredCircle","relationships","Overwatch","gaming","nba","aww","leagueoflegends","movies","nfl",
+        "BlackPeopleTwitter","GlobalOffensive","WTF","PoliticalDiscussion","Showerthoughts","me_irl","EnoughTrumpSpam","pcmasterrace","hearthstone","DotA2","mildlyinteresting","IAmA","hillaryclinton","technology","nottheonion","wow","television","Jokes","Music","MMA","Games","hockey","hiphopheads","science","gonewild","stevenuniverse","anime","baseball","OldSchoolCool","SubredditDrama","europe","CringeAnarchy","AskMen","4chan","HillaryForPrison","gameofthrones","trees","TumblrInAction","atheism","tifu","BigBrother","interestingasfuck","pokemon","conspiracy","food","TrollXChromosomes","NoMansSkyTheGame","canada","unitedkingdom","LifeProTips","CFB","asoiaf","Android","ImGoingToHellForThis","2007scape","KotakuInAction","uncensorednews","oddlysatisfying","photoshopbattles","explainlikeimfive","cringepics","TwoXChromosomes","de","youtubehaiku","magicTCG","UpliftingNews","RealGirls","AskWomen",
+        "Futurology","Political_Revolution","Art","reactiongifs","DestinyTheGame","trashy",
+        "EarthPorn","creepy","bestof","tf2","TheSilphRoad","NSFW_GIF","BoJackHorseman","askscience","books",
+        "fatlogic","Guildwars2","Kossacks_for_Sanders","woahdude","RoastMe","Fitness","rupaulsdragrace","MakeupAddiction",
+        "ukpolitics","meirl","nsfw","cringe","space","xboxone","Tinder","formula1","DC_Cinematic","Celebs"
+      ]
+
+      let redditByGrowth = ["Enough_Sanders_Spam","ScreamsFromThe90s","tulsi","JayZDoingThings","SULeaks","csbundestag","WayOfTheBern",
+      "Harambe","wehappyfew","DystopianPun","GoldandBlack","SuperMaM","jillstein","PokeScanner",
+      "legaladviceinaction","RIPpolitics","EnoughKissingerSpam","theperfectwife","EthereumClassic",
+      "findatweak","pokemongobotting","solesandholes","PokeVision","syriancivilwar","rustreports",
+      "rpghorrorstories","VicePrincipals","redheadxxx","StrangerThings",
+      "BigBoobsWithFriends","PokemonGo_HongKong","FreePolDiscussion","OnStageGW","PokemonGoCalgary","TheSilphRoad",
+      "leftwithsharpedge","UnexpectedPokemonGO","AccurateBattleSim","CrackTheClue","FUCKDAVIDKING","PokemonGo_Singapore",
+      "Kossacks_for_Sanders","hiddenwow","FreeKarma4You","StillSandersForPres","elderscrollslegends","funkoswap","GentlemenGW",
+      "DNCleaks","PokemonGoSpoofing","AskOuija","jesuschristreddit","madlads","KledMains","pokemongodev",
+      "20063002030652","EnoughTrumpSpam","The_Donald","monsterhunterrage","altright","apocalympics2016","WikiLeaks",
+      "ColumbusGO","Pokemon_Go_Porn_NSFW","agt","PokemonGoSanJose","gem_irl","thedonald","worldjerking","NSFWGfysOnly",
+      "pokemongoSA","pokemongola","AskTrumpSupporters","BeautifulSemicolons","MTVScream","EnoughHillHate","Rockband",
+      "Canonn","televisioncirclejerk","PokemongoSanDiego","evilbuildings","bikinibridge","BeachCity","Incels","askhillarysupporters",
+      "Tachanka","PokemonGoSyd","TheNightOf","pokemongoLondon","PKGOAtlanta","savedyouaclick","Mobpsycho100","creepyshowerthoughts",
+      "OCCaliPokemonGo","Re_Zero","TheXanaxCartel","PokemonGo_Orlando","PoliticalVideo","WinnipegPokemonGO","PoGoDFW","DeFranco",
+      "PokemonGoHouston","PokemonGoOttawa","TwoSentenceHorror","PokemonGoChi","DCEUboners","robotwars","kickasstorrents","PoGoVegas",
+      "ShittyPhrasing","samespecies","gatekeeping","realitydicks","PokemonGoPhilly","pokemongoSF","SanDiegan","breastsubever","hillaryclinton",
+      "GreenParty","StevenUniverseNSFW","pokemongosacramento","PokemonGoNewJersey","TeamJunebug","GaryJohnson","DonaldandHobbes"]
+
+      let personal = ["good", "bad", "love", "hate", "practical", "logical",
+      "emotional", "stories", "information", "entertainment", "pleasure",
+      "strengths", "weaknesses", "greed", "sad", "sick", "disgusting",
+      "joy", "mindless", "envy", "jealously", "pain", "empathy"]
+      $(function() {
+        let tableNum = 1;
+        $(".but").click(function() {
+          let randomCollegeRoll = Math.floor(Math.random() * collegeMajors.length)
+          let randomCollegeMajor = collegeMajors[randomCollegeRoll];
+
+          let randomIndustryRoll = Math.floor(Math.random() * industries.length)
+          let randomIndustry = industries[randomIndustryRoll];
+
+          let randomRedditByPopularRoll = Math.floor(Math.random() * redditByPopular.length)
+          let randomRedditByPopular = redditByPopular[randomRedditByPopularRoll];
+
+          let randomRedditByGrowthRoll = Math.floor(Math.random() * redditByGrowth.length)
+          let randomRedditByGrowth = redditByPopular[randomRedditByGrowthRoll];
+
+          let randomPersonalRoll = Math.floor(Math.random() * personal.length)
+          let randomPersonal = personal[randomPersonalRoll];
+
+          $(".mainlist").append(
+            `<tr>
+              <td>${tableNum}</td>
+              <td>${randomCollegeMajor}</td>
+              <td>${randomIndustry}</td>
+              <td>${randomRedditByPopularRoll}: ${randomRedditByPopular}</td>
+              <td>${randomRedditByGrowthRoll}: ${randomRedditByGrowth}</td>
+              <td>${randomPersonal}</td>
+            </tr>`
+          );
+          tableNum++;
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class='btncontainer'>
+        <button class="but btn btn-success center-block">BrainStorm!</button>
+      </div>
+        <table class="table table-inverse">
+    <thead class="">
+      <tr>
+        <th> # </th>
+        <th>College Major</th>
+        <th>Industry</th>
+        <th>Reddit By Popular</th>
+        <th>Reddit By Growth</th>
+        <th>Personal</th>
+      </tr>
+    </thead>
+    <tbody class="mainlist">
+
+    </tbody>
+  </table>
+  </body>
+</html>
